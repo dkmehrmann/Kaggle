@@ -1,0 +1,23 @@
+names(train)
+attach(train)
+library(rpart)
+fit <- rpart(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare + Embarked, data=train, method="class")
+summary(fit)
+predict(fit)
+plot(fit)
+text(fit)
+install.packages('rattle')
+install.packages('rpart.plot')
+install.packages('RColorBrewer')
+library(rattle)
+library(rpart.plot)
+library(RColorBrewer)
+fancyRpartPlot(fit)
+?rpart.control
+fit <- rpart(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare + Embarked, data=train, method="class", control=rpart.control(cp=.02))
+fancyRpartPlot(fit)
+new.fit <- prp(fit,snip=TRUE)$obj
+fancyRpartPlot(new.fit)
+test$Survived <- NA
+combi <- rbind(train,test)
+combi$Name <- as.character(combi$Name)
